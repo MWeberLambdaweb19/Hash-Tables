@@ -1,3 +1,5 @@
+import hashlib
+
 # '''
 # Linked List hash table key/value pair
 # '''
@@ -55,12 +57,10 @@ class HashTable:
 
         Fill this in.
         '''
-        if len(self.storage) == self.capacity:
-            # TODO Figure out what to do here
-            # Oh yeah, just resize the thing
-            self.resize()
-            return
-        pass
+        new_key = self._hash_mod(key)
+        if self.storage[new_key] is not None:
+            self.storage[new_key].next = LinkedPair(key, value)
+        self.storage[new_key] = LinkedPair(key, value)
 
 
 
@@ -72,7 +72,11 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        old_key = self._hash_mod(key)
+        if self.storage[old_key] is None:
+            return "Warning, key not found"
+        self.storage[old_key] = self.storage[old_key - 1]
+        self.storage[old_key].next = self.storage[old_key + 1].next
 
 
     def retrieve(self, key):
@@ -83,7 +87,10 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        old_key = self._hash_mod(key)
+        if self.storage[old_key] is None:
+            return None
+        self.storage[old_key]
 
 
     def resize(self):

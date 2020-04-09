@@ -20,12 +20,20 @@ import time
 
 # O(n) for add to back
 start_time = time.time()
-add_to_back(1500000)
+add_to_back(15)
 end_time = time.time()
 print(f'runtime: {end_time - start_time} seconds')
 
 # O(n^2) for add to front
 start_time = time.time()
-add_to_front(1500000)
+add_to_front(15)
 end_time = time.time()
 print(f'runtime: {end_time - start_time} seconds')
+
+import hashlib
+
+key = b'cats'
+
+capacity = 8
+print(key)
+print(int(hashlib.sha256(key).hexdigest(), 16) % 8)
